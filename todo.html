@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TODO</title>
+  <link rel="stylesheet" type="text/css" href="css/todo.css">
+</head>
+<body>
+    <div class="container">
+    <h1>TO DO</h1>
+    <div class="form">
+      <ul id="list">
+        <li><input type="checkbox" name="todo" value="1" onclick="checkElement(this)"><span>Hacer laboratorio de web</span></li>
+        <li><input type="checkbox" name="todo" value="2" onclick="checkElement(this)"><span>ejercicio</span></li>
+        <li><input type="checkbox" name="todo" value="3" onclick="checkElement(this)"><span>ir al super</span></li>
+        <li><input type="checkbox" name="todo" value="4" checked onclick="checkElement(this)"><span class="done">preparar de cenar</span></li>
+        <li><input type="checkbox" name="todo" value="5" onclick="checkElement(this)"><span>tomar 2 litros de agua</span></li>
+      </ul>
+      <span class="addElement">
+      <input id="newitem" type="text" name="newitem">
+      <img src="img/add.png" onclick="addElementToList()">
+      </span>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/lib/jquery.js" ></script>
+  <script type="text/javascript" src="js/todo.js"></script>
+</body>
+</html>
