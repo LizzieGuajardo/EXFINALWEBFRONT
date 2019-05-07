@@ -14,7 +14,7 @@ function updateTodo(id, completed) {
   json_to_send = JSON.stringify(json_to_send);
   $.ajax({
       //url: 'http://localhost:3000/todos/' + id,
-      url: 'https://examen-final-lizzie-g.herokuapp.com/todos'+id,
+      url: 'https://examen-final-lizzie-g.herokuapp.com/todos/'+id,
       headers: {
           'Content-Type':'application/json',
           'Authorization': 'Bearer ' + token
@@ -49,7 +49,7 @@ function loadTodos() {
         // aqui va su código para agregar los elementos de la lista
         console.log(data[i].description)
         // algo asi:
-        // addTodo(data[i]._id, data[i].description, data[i].completed)
+        addElementToList(data[i]._id, data[i].description, data[i].completed)
       }
     },
     error: function(error_msg) {
@@ -89,7 +89,7 @@ input.addEventListener('keypress', function (event) {
       data: json_to_send,
       success: function(data){
         console.log(data)
-        
+        addElementToList(data._id,data.description,data.checked)
       },
       error: function(error_msg) {
         alert((error_msg['responseText']));
@@ -106,24 +106,23 @@ function countListElements()
   return index.length;
 }
 
-tf = document.getElementById("newitem");
-tf.addEventListener('keyup',function(e){
-  if(e.keyCode == 13)
-  {
-    addElementToList();
-  }
-})
 
 /*When add button is clicked, reads text fields and adds it to the top of the list*/
-function addElementToList() {
+function addElementToList(id, text, checked) {
   var newlist = document.createElement("li");
   var newinput = document.createElement("input");
+   var newspan = document.createElement("span");
+  newinput.id = id;
   newinput.type = "checkbox";
   newinput.name = "todo";
   newinput.value = countListElements()+1;
+  if(checked){
+    newinput.checked = true;
+    newspan.classList.add("done");
+  }
   newinput.setAttribute("onClick", "checkElement(this)");
-  var newspan = document.createElement("span");
-  newspan.textContent = document.getElementById('newitem').value;
+ 
+  newspan.textContent = text//document.getElementById('newitem').value;
 
   newlist.appendChild(newinput);
   newlist.appendChild(newspan);
@@ -154,4 +153,6 @@ function checkElement(element)
     var ulElement = document.getElementById("list") 
     ulElement.insertBefore(copyOfelementLI, ulElement.children[0]);
   }
+  console.log(element.id,element.checked)
+  updateTodo(element.id,element.checked)
 }
